@@ -1,0 +1,33 @@
+.pagination {
+    display: flex; 
+}
+
+.pagination span {
+  color: black; 
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.pagination span.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  } 
+
+.pagination span:hover:not(.active) {
+  background-color: gray;
+}
+.pagination span.active{
+    background-color: rgb(89, 56, 237);
+  }
+.pagination span:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination span:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
