@@ -17,6 +17,7 @@ function App() {
   const url =
     "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
 
+  // Api call for get the response data
   const data = async () => {
     try {
       setLoading(true);
@@ -29,6 +30,7 @@ function App() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     data();
   }, []);
@@ -40,39 +42,38 @@ function App() {
       </>
     );
   }
- 
+  // searching filter by using the user input search
   const searchItems = (searchValue) => {
-    setSearchText(searchValue)
-    if (searchText !== '') {
-        const filteredTableData = currentRecords.filter((obj) => {
-            // return  Object.keys(obj).some((key) =>
-            // obj[key].toLowerCase().includes(searchText.toLowerCase())
-            // )
-            return Object.values(obj).join('').toLowerCase().includes(searchText.toLowerCase())
-        })
-        setTableData(filteredTableData)
+    debugger;
+    setSearchText(searchValue);
+    if (searchValue !== "") {
+      const filteredTableData = filteredData.filter((obj) => {
+        return Object.keys(obj).some((key) =>
+          obj[key].toLowerCase().includes(searchValue.toLowerCase())
+        );
+      });
+      setTableData(filteredTableData);
+    } else {
+      setTableData(filteredData);
     }
-    else{
-      setTableData(filteredData)
-    }
-}
-
-
+  };
+  // pagination for the table
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = tableData.slice(indexOfFirstRecord, indexOfLastRecord);
   const numberOfPages = Math.ceil(tableData.length / recordsPerPage);
 
- 
   const selectedPage = (number) => {
     setCurrentPage(number);
   };
 
+  // To delete the user section based on the selected checkbox
   const onDeleteUser = (id) => {
     const updateDeleteUserList = tableData.filter((user) => user.id !== id);
     setTableData(updateDeleteUserList);
   };
 
+  //select all the rows in the current page
   const handleSelectAll = (e) => {
     setAllSelected(!isAllSelected);
     setselectedUser(currentRecords.map((li) => li.id));
@@ -80,7 +81,7 @@ function App() {
       setselectedUser([]);
     }
   };
-
+  //select the user by checkbox input
   const handleClick = (e) => {
     const { id, checked } = e.target;
     setselectedUser([...selectedUser, id]);
@@ -88,6 +89,7 @@ function App() {
       setselectedUser(selectedUser.filter((item) => item !== id));
     }
   };
+  // delete all the rows in the current page
   const handleDeleteAll = () => {
     const newList = tableData.filter((user) => !selectedUser.includes(user.id));
     setTableData(newList);

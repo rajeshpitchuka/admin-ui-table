@@ -4,6 +4,7 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import "./editUser.css";
 
+//To Edit User Details
 function EditUSer({ userId, tableData, setTableData }) {
   const selectedUSer = tableData.find((user) => user.id === userId);
   const [open, setOpen] = useState(false);
@@ -12,6 +13,7 @@ function EditUSer({ userId, tableData, setTableData }) {
     email: selectedUSer.email,
     role: selectedUSer.role,
   });
+  
   const { name, email, role } = editUser;
   const modalOpen = () => {
     setOpen(true);
@@ -28,19 +30,23 @@ function EditUSer({ userId, tableData, setTableData }) {
       }
       return item;
     });
-    setTableData(newList)
-    setOpen(false)
+    setTableData(newList);
+    setOpen(false);
   };
 
-  const onChangeName = (event) => {
-    setEditUser({...editUser,name:event.target.value});
+
+  const inputChange = (event, inputValue) => {
+    if (inputValue === "name") {
+      setEditUser({ ...editUser, name: event.target.value });
+    }
+    if (inputValue === "email") {
+      setEditUser({ ...editUser, email: event.target.value });
+    }
+    if (inputValue === "role") {
+      setEditUser({ ...editUser, role: event.target.value });
+    }
   };
-  const onChangeEmail = (event) => {
-    setEditUser({...editUser,email:event.target.value});
-  };
-  const onChangeRole = (event) => {
-    setEditUser({...editUser,role:event.target.value});
-  };
+
   return (
     <>
       <BiEdit
@@ -64,15 +70,30 @@ function EditUSer({ userId, tableData, setTableData }) {
             }}
           >
             <label> name:</label>
-            <input onChange={onChangeName} value={editUser.name} type="text" placeholder={name} />
+            <input
+              onChange={(e) => inputChange(e, "name")}
+              value={editUser.name}
+              type="text"
+              placeholder={name}
+            />
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <label> email:</label>
-            <input onChange={onChangeEmail}  value={editUser.email}type="text" placeholder={email} />
+            <input
+              onChange={(e) => inputChange(e, "email")}
+              value={editUser.email}
+              type="text"
+              placeholder={email}
+            />
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <label> role:</label>
-            <input onChange={onChangeRole} value={editUser.role} type="text" placeholder={role} />
+            <input
+              onChange={(e) => inputChange(e, "role")}
+              value={editUser.role}
+              type="text"
+              placeholder={role}
+            />
           </div>
           <div style={{ display: "flex", marginTop: "20px" }}>
             <button
