@@ -76,11 +76,12 @@ function App() {
   //select all the rows in the current page
   const handleSelectAll = (e) => {
     setAllSelected(!isAllSelected);
-    setselectedUser(currentRecords.map((li) => li.id));
+    setselectedUser(currentRecords.map(li => li.id));
     if (isAllSelected) {
       setselectedUser([]);
     }
   };
+
   //select the user by checkbox input
   const handleClick = (e) => {
     const { id, checked } = e.target;

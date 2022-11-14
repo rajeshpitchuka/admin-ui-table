@@ -20,10 +20,10 @@ function Pagination({ pageNumbers, changePage, currentPage ,setCurrentPage}) {
   }
 
 const previous=()=>{
-    setCurrentPage(currentPage-1)
+    setCurrentPage((currentPage)=>currentPage-1)
   }
   const next=()=>{
-    setCurrentPage(currentPage+1)
+    setCurrentPage((currentPage)=>currentPage+1)
   }
   return (
     <>
